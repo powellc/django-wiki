@@ -6,9 +6,18 @@
 
 	{% if not page.id %}
 		<p>This page does not exist, <a href="edit/">create it now</a>?</p>
+    {% else %}
+        {% if revision %}
+        <p>
+            {{ revision.rendered|safe|linebreaks }}
+        </p>
+        revision: {{ revision.counter }}, last edited: {{ revision.date|date:'N j, Y, P' }}
+        {% else %}
+            This page has no revisions.
+        {% endif %}
 	{% endif %}
 
-	{{ page.rendered|safe|linebreaks }}
+
 {% endblock %}
 
 

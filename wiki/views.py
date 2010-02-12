@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 
 from forms import PageForm
-from models import Page
+from models import Page, Revision
 
 
 def index(request):
@@ -14,12 +14,14 @@ def index(request):
 
 def view(request, name):
     """Shows a single wiki page."""
+    revision = None
     try:
         page = Page.objects.get(name=name)
+        revision = page.get_latest_revision()
     except Page.DoesNotExist:
         page = Page(name=name)
 
-    return render_to_response('wiki/view.html', {'page': page})
+    return render_to_response('wiki/view.html', {'page': page, 'revision': revision})
 
 
 def edit(request, name):
@@ -35,13 +37,18 @@ def edit(request, name):
             if not page:
                 page = Page()
             page.name = form.cleaned_data['name']
-            page.content = form.cleaned_data['content']
-
             page.save()
+
+            revision = Revision()
+            revision.page = page
+            revision.content = form.cleaned_data['content']
+
+            revision.save()
             return HttpResponseRedirect('../../%s/' % page.name)
     else:
         if page:
-            form = PageForm(initial=page.__dict__)
+            revision = page.get_latest_revision()
+            form = PageForm(initial={'name': page.name, 'content': revision.content})
         else:
             form = PageForm(initial={'name': name})
 

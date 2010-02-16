@@ -24,7 +24,6 @@ class Revision(models.Model):
     rendered = models.TextField()
     date = models.DateTimeField()
     counter = models.IntegerField(default=1, editable=False)
-    prev = models.ForeignKey('self', blank=True, null=True, editable=False)
 
     def save(self, *args, **kwargs):
 
@@ -42,11 +41,19 @@ class Revision(models.Model):
             self.counter = 1
 
         self.date = datetime.now()
-        self.prev = self.page.latest_revision
         self.rendered = wikify(self.content)    # store rendered content rather than doing it on-the-fly
-
 
         super(Revision, self).save(*args, **kwargs)
 
         self.page.latest_revision = self
         self.page.save()
+
+    def get_prev(self):
+        if self.counter == 1:
+            return None
+        return Revision.objects.get(page=self.page, counter=self.counter-1)
+
+    def get_next(self):
+        if page.latest_revision == self:
+            return None
+        return Revision.objects.get(page=self.page, counter=self.counter+1)

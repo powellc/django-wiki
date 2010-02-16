@@ -12,16 +12,20 @@ def index(request):
     return render_to_response('wiki/index.html', {'pages': pages})
 
 
-def view(request, name):
+def view(request, name, rev=None):
     """Shows a single wiki page."""
-    revision = None
     try:
         page = Page.objects.get(name=name)
-        revision = page.get_latest_revision()
+        if rev is not None:
+            rev = int(rev)
+            revision = get_object_or_404(Revision, page=page, counter=rev)
+        else:
+            revision = page.get_latest_revision()
     except Page.DoesNotExist:
         page = Page(name=name)
+        revision = None
 
-    return render_to_response('wiki/view.html', {'page': page, 'revision': revision})
+    return render_to_response('wiki/view.html', { 'page': page, 'revision': revision })
 
 
 def edit(request, name):

@@ -6,5 +6,6 @@ from templatetags.wiki import WIKI_WORD
 urlpatterns = patterns('wiki.views',
     (r'^$', 'index'),
     ('(?P<name>%s)/$' % WIKI_WORD, 'view'),
+    ('(?P<name>%s)/(?P<rev>\d+)/$' % WIKI_WORD, 'view'),
     ('(?P<name>%s)/edit/$' % WIKI_WORD, 'edit'),
 )

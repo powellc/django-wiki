@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from templatetags.wiki import wikify
 
@@ -16,6 +17,9 @@ class Page(models.Model):
 
     def get_latest_revision(self):
         return self.latest_revision
+
+    def get_absolute_url(self):
+        return reverse('wiki.views.view', args=[self.name])
 
 
 class Revision(models.Model):
@@ -54,6 +58,9 @@ class Revision(models.Model):
         return Revision.objects.get(page=self.page, counter=self.counter-1)
 
     def get_next(self):
-        if page.latest_revision == self:
+        if self.page.latest_revision == self:
             return None
         return Revision.objects.get(page=self.page, counter=self.counter+1)
+
+    def get_absolute_url(self):
+        return reverse('wiki.views.view', args=[self.page.name, self.counter])

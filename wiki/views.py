@@ -46,9 +46,10 @@ def edit(request, name):
             revision = Revision()
             revision.page = page
             revision.content = form.cleaned_data['content']
-
+            if request.user.is_authenticated():
+                revision.editor = request.user
             revision.save()
-            return HttpResponseRedirect('../../%s/' % page.name)
+            return HttpResponseRedirect(page.get_absolute_url())
     else:
         if page:
             revision = page.get_latest_revision()

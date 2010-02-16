@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from templatetags.wiki import wikify
 
@@ -25,9 +26,13 @@ class Page(models.Model):
 class Revision(models.Model):
     page = models.ForeignKey('Page', related_name="revisions")
     content = models.TextField()
-    rendered = models.TextField()
+    rendered = models.TextField(blank=True)
     date = models.DateTimeField()
     counter = models.IntegerField(default=1, editable=False)
+    editor = models.ForeignKey(User, blank=True, null=True)
+
+    class Meta:
+        ordering = ('-counter', )
 
     def save(self, *args, **kwargs):
 
@@ -46,6 +51,7 @@ class Revision(models.Model):
 
         self.date = datetime.now()
         self.rendered = wikify(self.content)    # store rendered content rather than doing it on-the-fly
+        
 
         super(Revision, self).save(*args, **kwargs)
 
@@ -64,3 +70,8 @@ class Revision(models.Model):
 
     def get_absolute_url(self):
         return reverse('wiki.views.view', args=[self.page.name, self.counter])
+
+    def get_editor_name(self):
+        if not self.editor:
+            return u"anonymous"
+        return self.editor.username

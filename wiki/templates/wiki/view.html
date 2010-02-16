@@ -10,7 +10,7 @@
         <p>
             {{ revision.rendered|safe|linebreaks }}
         </p>
-        revision: {{ revision.counter }}, last edited: {{ revision.date|date:'N j, Y, P' }}<br/>
+        revision: {{ revision.counter }}, last edited: {{ revision.date|date:'N j, Y, P' }} by: {{ revision.get_editor_name }}<br/>
             {% if revision.get_prev %}
                 <a href="{{ revision.get_prev.get_absolute_url }}">previous</a>
             {% endif %}

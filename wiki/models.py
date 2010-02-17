@@ -34,6 +34,9 @@ class Revision(models.Model):
     class Meta:
         ordering = ('-counter', )
 
+    def __unicode__(self):
+        return u"%s" % self.counter    
+
     def save(self, *args, **kwargs):
 
         if self.page:

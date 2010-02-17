@@ -5,12 +5,36 @@ from django.shortcuts import get_object_or_404, render_to_response
 from forms import PageForm
 from models import Page, Revision
 
-
 def index(request):
     """Lists all pages stored in the wiki."""
     pages = Page.objects.all()
     return render_to_response('wiki/index.html', {'pages': pages})
 
+def diff(request, name, rev=None):
+    """Shows the diffs for a wiki revision"""
+    try:
+        page = Page.objects.get(name=name)
+        if rev is not None:
+            rev = int(rev)
+            revision = get_object_or_404(Revision, page=page, counter=rev)
+        else:
+            revision = page.get_latest_revision()
+    except Page.DoesNotExist:
+        page = Page(name=name)
+        revision = None
+
+    # compute diff
+    import difflib
+    prev_content = ""
+    if revision and revision.get_prev():
+        prev_content = revision.get_prev().content
+
+    #diff = difflib.HtmlDiff().make_table(revision.content.splitlines(), prev_content.splitlines())
+    d = difflib.Differ()
+    diff = d.compare(prev_content.splitlines(), revision.content.splitlines())
+    diff = '\n'.join(list(diff))
+
+    return render_to_response('wiki/diff.html', { 'page': page, 'revision': revision, 'diff': diff })
 
 def view(request, name, rev=None):
     """Shows a single wiki page."""

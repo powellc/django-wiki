@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
 
 from forms import PageForm
 from models import Page, Revision
@@ -8,7 +9,9 @@ from models import Page, Revision
 def index(request):
     """Lists all pages stored in the wiki."""
     pages = Page.objects.all()
-    return render_to_response('wiki/index.html', {'pages': pages})
+
+    ctx = {'pages': pages}
+    return render_to_response('wiki/index.html', ctx, context_instance=RequestContext(request))
 
 def view_diff(request, name, rev=None):
     """Shows the diffs for a wiki revision"""
@@ -34,7 +37,8 @@ def view_diff(request, name, rev=None):
     diff = d.compare(prev_content.splitlines(), revision.content.splitlines())
     diff = '\n'.join(list(diff))
 
-    return render_to_response('wiki/diff.html', { 'page': page, 'revision': revision, 'diff': diff })
+    ctx = { 'page': page, 'revision': revision, 'diff': diff }
+    return render_to_response('wiki/diff.html', ctx, context_instance=RequestContext(request))
 
 def view(request, name, rev=None):
     """Shows a single wiki page."""
@@ -49,7 +53,8 @@ def view(request, name, rev=None):
         page = Page(name=name)
         revision = None
 
-    return render_to_response('wiki/view.html', { 'page': page, 'revision': revision })
+    ctx = { 'page': page, 'revision': revision }
+    return render_to_response('wiki/view.html', ctx, context_instance=RequestContext(request))
 
 
 def edit(request, name):
@@ -81,4 +86,6 @@ def edit(request, name):
         else:
             form = PageForm(initial={'name': name})
 
-    return render_to_response('wiki/edit.html', {'form': form})
+    ctx = { 'form': form }
+    return render_to_response('wiki/edit.html', ctx, context_instance=RequestContext(request))
+

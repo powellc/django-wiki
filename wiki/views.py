@@ -10,7 +10,7 @@ def index(request):
     pages = Page.objects.all()
     return render_to_response('wiki/index.html', {'pages': pages})
 
-def diff(request, name, rev=None):
+def view_diff(request, name, rev=None):
     """Shows the diffs for a wiki revision"""
     try:
         page = Page.objects.get(name=name)

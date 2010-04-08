@@ -11,10 +11,9 @@ class PageForm(forms.Form):
         import re
         from templatetags.wiki import WIKI_WORD
 
-        pattern = re.compile(WIKI_WORD)
-
         name = self.cleaned_data['name']
-        if not pattern.match(name):
+        match = re.match(WIKI_WORD, name)
+        if not (match and match.group() == name):
             raise forms.ValidationError('Must be a WikiWord.')
 
         return name

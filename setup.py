@@ -10,7 +10,7 @@ setup(
     url = 'http://github.com/tmitchell/django-wiki',
     license = 'BSD',
     description = "A super simple wiki for Django.",
-    long_description = read('README'),
+    long_description = read('README.rst'),
 
     author = 'John Sutherland, Taylor Mitchell',
     author_email = "taylor.mitchell@gmail.com",

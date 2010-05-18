@@ -55,7 +55,6 @@ class Revision(models.Model):
         self.date = datetime.now()
         self.rendered = wikify(self.content)    # store rendered content rather than doing it on-the-fly
         
-
         super(Revision, self).save(*args, **kwargs)
 
         self.page.latest_revision = self

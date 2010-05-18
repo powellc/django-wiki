@@ -1,0 +1,1 @@
+include src/wiki/templates/wiki/*.html

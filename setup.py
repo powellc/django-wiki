@@ -20,7 +20,7 @@ setup(
     package_data = {'': ['wiki/templates/wiki/*.html']},
     include_package_data = True,
     
-    install_requires = ['setuptools'],
+    install_requires = ['setuptools','django','markdown'],
 
     classifiers = [
         'Development Status :: 3 - Alpha',

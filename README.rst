@@ -18,6 +18,7 @@ URLConf::
    (r'^wiki/', include('wiki.urls')),
 
 This will set up the following URL patterns:
+
 * ``/wiki`` will be the view to list all of the wiki pages.
 
 * ``/wiki/<name>/`` will be the view for the latest revision of

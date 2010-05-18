@@ -4,13 +4,13 @@
 	<h1><a href="{{ page.get_absolute_url }}" rel="bookmark">{{ page.name }}</a></h1>
 
 	{% if not page.id %}
-		<p>This page does not exist, <a href="{% url edit-page page %}">create it now</a>?</p>
+		<p>This page does not exist, <a href="{% url wiki-edit-page page %}">create it now</a>?</p>
     {% else %}
         {% if revision.id %}
         
             <p class="nav">
             {% block wikinav %}
-                <a href="{% url view-diff page revision %}">view changes</a>
+                <a href="{% url wiki-view-diff page revision %}">view changes</a>
                 |
                 {% if revision.get_prev %}
                     <a href="{{ revision.get_prev.get_absolute_url }}">previous</a>
@@ -44,9 +44,9 @@
 {% block footer %}
 	{% if page.id %}
 	    {% if not next %}
-		<a href="{% url edit-page page %}">Edit this page</a> |
+		<a href="{% url wiki-edit-page page %}">Edit this page</a> |
 		{% endif %}
 	{% else %}
-		<a href="{% url edit-page page %}">Create this page</a> |
+		<a href="{% url wiki-edit-page page %}">Create this page</a> |
 	{% endif %}
 {% endblock %}

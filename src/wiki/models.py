@@ -19,8 +19,9 @@ class Page(models.Model):
     def get_latest_revision(self):
         return self.latest_revision
 
+    @models.permalink
     def get_absolute_url(self):
-        return reverse('wiki.views.view', args=[self.name])
+        return ('wiki-view-page', (), { 'name': self.name })
 
 
 class Revision(models.Model):

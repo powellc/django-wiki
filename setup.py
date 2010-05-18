@@ -17,6 +17,8 @@ setup(
 
     packages = find_packages('src'),
     package_dir = {'': 'src'},
+    package_data = {'': ['wiki/templates/wiki/*.html']},
+    include_package_data = True,
     
     install_requires = ['setuptools'],
 

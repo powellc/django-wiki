@@ -28,7 +28,7 @@
 
             <p>
             {% block wikitext %}
-                {{ revision.rendered|safe|linebreaks }}
+                {{ revision.rendered|safe }}
             {% endblock %}
             </p>
             revision: {{ revision.counter }}, edited: {{ revision.date|date:'N j, Y, P' }} by: {{ revision.get_editor_name }}<br/>

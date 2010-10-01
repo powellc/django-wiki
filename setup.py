@@ -15,15 +15,16 @@ setup(
     author = 'John Sutherland, Taylor Mitchell',
     author_email = "taylor.mitchell@gmail.com",
 
-    packages = find_packages('src'),
-    package_dir = {'': 'src'},
-    package_data = {'': [
+    packages = find_packages(),
+    package_data = {
+        'wiki': [
             'wiki/templates/wiki/*.html',
             'wiki/media/*',
-    ]},
-    include_package_data = True,
+        ],
+    },
+#    include_package_data = True,
     
-    install_requires = ['setuptools','django','markdown'],
+#    install_requires = ['setuptools','django','markdown'],
 
     classifiers = [
         'Development Status :: 3 - Alpha',

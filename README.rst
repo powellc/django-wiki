@@ -22,16 +22,16 @@ This will set up the following URL patterns:
 * ``/wiki`` will be the view to list all of the wiki pages.
 
 * ``/wiki/<name>/`` will be the view for the latest revision of
-  a wiki page.  It has a url pattern of ``wiki-view-page``.
+  a wiki page.  It has a url name of ``wiki-view-page``.
 
 * ``/wiki/<name>/<rev>`` will be the view for a specific revision
-  of a wiki page.  It has a url pattern of ``wiki-view-revision``.
+  of a wiki page.  It has a url name of ``wiki-view-revision``.
 
 * ``/wiki/<name>/diff/<rev>`` will be the view for the diffs for
-  a specific revision of a wiki page.  It has a url pattern of ``wiki-view-diff``.
+  a specific revision of a wiki page.  It has a url name of ``wiki-view-diff``.
 
 * ``/wiki/<name>/edit`` will be the view to edit a wiki page.  It has a
-  url pattern of ``wiki-edit-page``.
+  url name of ``wiki-edit-page``.
 
 The default wiki page name format is `WikiWord`_.  You can customize the naming
 convention if desired by adding your own regular expression to your settings.py

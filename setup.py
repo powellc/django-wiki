@@ -12,7 +12,7 @@ setup(
     description = "A super simple wiki for Django.",
     long_description = read('README.rst'),
 
-    author = 'John Sutherland, Taylor Mitchell',
+    author = 'Taylor Mitchell',
     author_email = "taylor.mitchell@gmail.com",
 
     packages = find_packages(),
@@ -22,9 +22,6 @@ setup(
             'wiki/media/*',
         ],
     },
-#    include_package_data = True,
-    
-#    install_requires = ['setuptools','django','markdown'],
 
     classifiers = [
         'Development Status :: 3 - Alpha',

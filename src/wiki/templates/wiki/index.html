@@ -7,10 +7,10 @@
 	{% if pages %}
 		<ul>
 			{% for page in pages %}
-				<li><a href="{{ page.name }}/">{{ page.name }}</a></li>
+				<li><a href="{{ page.get_absolute_url }}">{{ page.name }}</a></li>
 			{% endfor %}
 		</ul>
 	{% else %}
-		<p><a href="NewPage/edit/">Create a new page</a>.</p>
+		<p><a href="{% url wiki-edit-page "NewPage" %}">Create a new page</a>.</p>
 	{% endif %}
 {% endblock %}

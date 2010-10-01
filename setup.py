@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "django-wiki",
-    version = "1.1dev",
+    version = read('VERSION.txt'),
     url = 'http://github.com/tmitchell/django-wiki',
     license = 'BSD',
     description = "A super simple wiki for Django.",

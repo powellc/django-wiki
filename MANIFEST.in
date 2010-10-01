@@ -1,1 +1,3 @@
 include src/wiki/templates/wiki/*.html
+recursive-include src/wiki/media/ *.html *.css *.js *.gif
+include README.rst

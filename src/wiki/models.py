@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from templatetags.wiki import wikify
+import markdown
 
 from datetime import datetime
 
@@ -54,8 +54,12 @@ class Revision(models.Model):
             self.counter = 1
 
         self.date = datetime.now()
-        self.rendered = wikify(self.content)    # store rendered content rather than doing it on-the-fly
-        
+
+        # render content with markdown
+        wiki_root = reverse('wiki.views.index', args=[], kwargs={})
+        wikilink_ext = "wikilinks(base_url=%s)" % wiki_root
+        self.rendered = markdown.markdown(self.content, [wikilink_ext])
+
         super(Revision, self).save(*args, **kwargs)
 
         self.page.latest_revision = self

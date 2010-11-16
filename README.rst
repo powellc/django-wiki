@@ -5,9 +5,9 @@ Super simple pluggable wiki application for Django.
 
 Authors
 -------
-John Sutherland (john@sneeu.com)
+John Sutherland (https://github.com/sneeu)
 
-Taylor Mitchell (taylor.mitchell@gmail.com)
+Taylor Mitchell (https://github.com/tmitchell)
 
 Basic Usage
 -----------
@@ -47,5 +47,5 @@ check `the issues list`_ to see if it's already been reported. If not,
 open a new issue and I'll do my best to respond quickly.
 
 .. _WikiWord: http://twiki.org/cgi-bin/view/TWiki/WikiWord
-.. _project page on Github: http://github.com/tmitchell/django-wiki
-.. _the issues list: http://github.com/tmitchell/django-wiki/issues
+.. _project page on Github: https://github.com/tmitchell/django-wiki
+.. _the issues list: https://github.com/tmitchell/django-wiki/issues

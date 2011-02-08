@@ -1,6 +1,8 @@
 import os
 from setuptools import setup, find_packages
 
+from finddata import find_package_data
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
@@ -16,12 +18,7 @@ setup(
     author_email = "taylor.mitchell@gmail.com",
 
     packages = find_packages(),
-    package_data = {
-        'wiki': [
-            'wiki/templates/wiki/*.html',
-            'wiki/media/*',
-        ],
-    },
+    package_data = find_package_data(),
 
     classifiers = [
         'Development Status :: 3 - Alpha',

@@ -1,4 +1,5 @@
 include wiki/templates/wiki/*.html
+include wiki/templates/search/indexes/wiki/*.txt
 recursive-include wiki/static/ *.html *.css *.js *.gif
 include README.rst
 include VERSION.txt

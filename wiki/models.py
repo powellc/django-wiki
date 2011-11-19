@@ -58,7 +58,8 @@ class Revision(models.Model):
         # render content with markdown
         wiki_root = reverse('wiki.views.index', args=[], kwargs={})
         wikilink_ext = "wikilinks(base_url=%s)" % wiki_root
-        self.rendered = markdown.markdown(self.content, [wikilink_ext])
+        md = markdown.Markdown(extensions=[wikilink_ext, 'toc'])
+        self.rendered = md.convert(self.content)
 
         super(Revision, self).save(*args, **kwargs)
 
@@ -77,6 +78,10 @@ class Revision(models.Model):
 
     def get_absolute_url(self):
         return reverse('wiki.views.view', args=[self.page.name, self.counter])
+
+    def paragraphs(self):
+        import re
+        return re.findall("(<p>.+?</p>)", self.rendered, re.I | re.S)
 
     def get_editor_name(self):
         if not self.editor:
